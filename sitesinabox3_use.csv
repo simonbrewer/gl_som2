@@ -1,0 +1,54 @@
+site.id,site.name,dataset.id,lon,lat,elev,agelo,agehi,chron,nchron,nsamp,type,region,chron,use,segments,Notes1,Notes2
+196,Hell's Kitchen Lake,3131,-89.702685,46.18693,488,-10,2046,Radiocarbon years BP,3,75,pollen,MI,3,2,,Varve chronology,
+197,Lake Mary,3473,-89.9,46.25,488,200,10345,Radiocarbon years BP,1,28,pollen,WI,0,1,39,Bacon run,
+318,Burntside Lake,325,-91.994722,47.924167,NA,-24,904,Radiocarbon years BP,1,21,pollen,MN,0,1,11,Bacon run,
+325,Camp 11 Lake,332,-88.016667,46.666667,549,0,10355,Radiocarbon years BP,1,37,pollen,MI,0,1,171,Bacon run,
+531,Dark Lake,546,-91.475,45.275,334,0,994,Radiocarbon years BP,3,39,pollen,WI,3,2,,Varve chronology,
+1410,Kellys Hollow,1447,-90.35,45.3,470,-29,10000,Radiocarbon years BP,2,21,pollen,WI,0,1,33,Bacon run,
+1410,Kellys Hollow,3452,-90.35,45.3,470,-29,10730,Radiocarbon years BP,1,28,pollen,WI,0,1,71,Bacon run,Lower part of chronology is a bit dodgy
+1486,Kitchner Lake,1524,-87.455,45.666667,237,-21,11019,Radiocarbon years BP,1,31,pollen,MI,0,1,63,Bacon run,
+1526,Kylen Lake,1564,-91.8,47.35,485,8406,15900,Radiocarbon years BP,1,40,pollen,MN,0,1,109,Bacon run,Added core top to avoid problem at start of core
+1540,Lake Sixteen,1580,-84.316667,45.6,216,2206,11769,Radiocarbon years BP,1,36,pollen,MI LP,0,1,46,Bacon run,
+1541,Lake 27,1581,-84.783333,45.066667,411,100,3263,Radiocarbon years BP,1,24,pollen,MI LP,0,1,35,Bacon run,
+1598,Lake of the Clouds,1649,-91.116667,48,462,9114,11800,Varve years BP,3,13,pollen,MN,0,2,,Varve chronology,Have checked depths
+1598,Lake of the Clouds,3482,-91.116667,48,462,491,9588,Radiocarbon years BP,4,37,pollen,CAN,0,1,93,Bacon run,
+1598,Lake of the Clouds,3483,-91.116667,48,462,-20,960,Varve years BP,1,68,pollen,CAN,0,2,,Varve chronology,Have checked depths
+1613,Lost Lake,1665,-87.97207,46.719435,524,0,10036,Radiocarbon years BP,1,33,pollen,MI,0,1,157,Bacon run,
+1645,Stewart's Dark Lake,3781,-91.45,45.3,335,482,10649,Radiocarbon years BP,1,54,pollen,WI,0,1,103,Bacon run,
+2231,Ruby Lake,2309,-91.458333,45.283333,335,-15,916,Radiocarbon years BP,3,36,pollen,WI,0,2,,Varve chronology,Have checked depths
+2239,Ryerse Lake,2318,-85.179167,46.131944,259,603,8923,Radiocarbon years BP,1,29,pollen,MI,0,1,29,Bacon run,Added core top to avoid problem at start of core
+2293,Shagawa Lake,2375,-91.866667,47.916667,492,-18,1950,Radiocarbon years BP,2,25,pollen,MN,0,1,32,Bacon run,Force acc.mean to 20
+2502,Spirit Lake,2586,-86.958333,46.47,203,-20,11767,Radiocarbon years BP,1,55,pollen,MI,0,1,130,Bacon run,
+2793,Upper Mallot Lake,2890,-84.258333,47.308333,422,0,10500,Radiocarbon years BP,1,37,pollen,CAN,0,1,30,Bacon run,
+2849,Weber Lake,3837,-91.66,47.471667,559,10,15000,Radiocarbon years BP,1,50,pollen,MN,0,1,87,Bacon run,
+2934,Wolverine Lake,3032,-85.661111,46.429167,259,100,10115,Radiocarbon years BP,1,42,pollen,MI,0,1,68,Bacon run,
+2937,Wood Lake,3035,-90.083333,45.333333,464,0,13101,Radiocarbon years BP,1,52,pollen,WI,0,1,73,Bacon run,
+2948,Yellow Dog Pond,3047,-87.95,46.75,445,0,9137,Radiocarbon years BP,1,37,pollen,MI,0,1,72,Bacon run,
+2956,Canyon Lake,15682,-87.921389,46.833333,258,-10,11320,Calibrated radiocarbon years BP,1,68,pollen,MI,0,1,152,Bacon run,
+7529,Little Dollar Lake,12001,-85.3082,46.186,258,-20,6000,Radiocarbon years BP,2,20,pollen,MI,0,1,17,Bacon run,Used C14 and pollen strat markers. Pretty horrible model
+8559,Irwin Smith Bog,13047,-83.61,45.0265,223,-22,7213,Calibrated radiocarbon years BP,2,173,pollen,MI LP,0,1,45,Bacon run,Used control points from Neotoma chronology 3
+8567,Adeline Lake,13060,-91.166,46.30235,418,-54,2080,Calibrated radiocarbon years BP,1,33,pollen,WI,0,1,36,Bacon run,
+8572,Elevenses Lake,13069,-91.4935,46.3815,355,-54,2090,Calibrated radiocarbon years BP,1,28,pollen,WI,0,1,61,Bacon run,
+8573,Eska Lake,13071,-90.608,45.19145,443,-35,2135,Calibrated radiocarbon years BP,1,31,pollen,WI,0,1,55,Bacon run,
+8574,Fallison Lake,13073,-89.62075,45.9915,501,-51,2138,Calibrated radiocarbon years BP,1,23,pollen,WI,0,1,60,Bacon run,
+8586,Glimmerglass Lake,13097,-89.32082,46.21517,522,52,11678,Calibrated radiocarbon years BP,2,35,pollen,WI,0,1,60,Bacon run,
+9738,Tower Lake,14410,-86.037795,46.542635,261,1697,8775,Calibrated radiocarbon years BP,1,112,pollen,MI,0,1,89,Bacon run,
+9738,Tower Lake,14443,-86.037795,46.542635,261,-18,457,Calibrated radiocarbon years BP,1,6,pollen,MI,0,1,12,Bacon run,
+9738,Tower Lake,14889,-86.037795,46.542635,261,532,1683,Calibrated radiocarbon years BP,1,10,pollen,MI,0,1,30,Bacon run,
+9738,Tower Lake,17993,-86.037795,46.542635,261,2113,2203,Calibrated radiocarbon years BP,1,2,pollen,MI,0,1,36,Bacon run,
+9993,Nelson Lake,14933,-85.380295,46.2287,251,-46,6901,Calibrated radiocarbon years BP,1,28,pollen,MI,0,1,44,Bacon run,
+10034,Mud Lake,15032,-88.31698778,47.129415,189,-49,10316,Calibrated radiocarbon years BP,1,57,pollen,MI,0,1,119,Bacon run,
+10036,Lily Lake,15035,-89.0908,47.911995,301,1057,10259,Calibrated radiocarbon years BP,1,73,pollen,MI,0,1,178,Bacon run,
+10163,East Soldier Lake,15309,-84.857625,46.34668,272,12,9469,Calibrated radiocarbon years BP,1,53,pollen,MI,0,1,67,Bacon run,
+10164,Guard Lake,15311,-84.77968,46.12683,254,451,2939,Calibrated radiocarbon years BP,1,6,pollen,MI,0,1,19,Bacon run,
+10168,Trout Lake Bog,15316,-85.0215,46.205,259,-29,3870,Calibrated radiocarbon years BP,1,13,pollen,MI,0,1,41,Bacon run,
+10316,Buck Lake,15660,-86.35387,46.520515,278,-34,8393,Calibrated radiocarbon years BP,1,50,pollen,MI,0,1,84,Bacon run,Chronology needs checking
+10352,Hemlock Lake,15740,-91.19829,46.3073,412,-32,10717,Calibrated radiocarbon years BP,1,50,pollen,WI,0,1,92,Bacon run,
+10428,Kerr Lake,15916,-89.2758,46.24378,524,865,8621,Calibrated radiocarbon years BP,1,10,pollen,MI,0,1,19,Bacon run,
+10429,Crooked Lake,15919,-89.29409,46.24525,519,-12,10136,Calibrated radiocarbon years BP,1,24,pollen,WI,0,1,91,Bacon run,
+10430,Jay Lake,15922,-89.28155,46.23435,544,36,10360,Calibrated radiocarbon years BP,1,33,pollen,WI,0,1,56,Bacon run,
+10431,Lake O' Pines,15925,-89.2553,46.140435,514,-38,11704,Calibrated radiocarbon years BP,1,35,pollen,WI,0,1,82,Bacon run,
+11563,Capitola Lake,17304,-89.55507,45.519575,460,-6,9557,Calibrated radiocarbon years BP,1,39,pollen,WI,0,1,66,Bacon run,Adjusted last two samples for linear age increase
+11610,Lorraine Lake,17404,-86.48299,46.144685,437,-30,10120,Radiocarbon years BP,3,70,pollen,MI,0,1,67,Bacon run,
+11611,Penegor Lake,17406,-88.86036,46.61506,437,-35,8670,Radiocarbon years BP,3,40,pollen,MI,0,1,46,Bacon run,Used control points from Neotoma chronology 3
+13528,South Rhody peatland,20397,-86.0752,46.565795,285,-41,10416,Calibrated radiocarbon years BP,2,98,pollen,MI,0,1,94,Bacon run,
