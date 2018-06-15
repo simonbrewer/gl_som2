@@ -29,25 +29,6 @@ plot(poll.som, type="property", property=nodeAge/1000, main="Mean node age in ka
 #add.cluster.boundaries(poll.som, poll.som.kmean$cluster)
 
 ## ------------------------------------------------------------------------
-som.nb = graph2nb(gabrielneigh(grid.som$pts),sym=TRUE)
-#plot(som.nb, grid.som$pts)
-
-## ------------------------------------------------------------------------
-lcosts <- nbcosts(som.nb, poll.som$codes[[1]])
-nb.w <- nb2listw(som.nb, lcosts, style="B")
-
-## ------------------------------------------------------------------------
-nbclus = 6
-som.mst <- mstree(nb.w,nbclus-1)
-plot(som.mst, grid.som$pts, col=2,       
-     cex.lab=.7, cex.circles=0.035, fg="blue")
-
-## ------------------------------------------------------------------------
-som.skat <- skater(som.mst[,1:2], poll.som$codes[[1]], ncuts=(nbclus-1))
-som.clus = som.skat$groups
-table(som.clus)
-
-## ------------------------------------------------------------------------
 plot(som.skat, grid.som$pts, cex.circles=0.035, cex.lab=.7)
 
 ## ------------------------------------------------------------------------
@@ -68,6 +49,8 @@ print(x)
 
 ## ------------------------------------------------------------------------
 plot.df = data.frame(age=nodeAge, cluster=as.factor(som.clus))
+plot.df$cluster.ord = reorder(plot.df$cluster, plot.df$age*-1, FUN=median, na.rm=TRUE)
+
 x = ggplot(plot.df, aes(x=reorder(cluster, age*-1, FUN=median, na.rm=TRUE), y=age, fill=cluster)) + 
   geom_boxplot() + scale_fill_brewer(palette="Dark2")
 x = x + theme_bw() + scale_x_discrete("Cluster") + scale_y_continuous("Age BP")
@@ -79,3 +62,10 @@ x = ggplot(plot.df, aes(x=reorder(cluster, age*-1, FUN=median, na.rm=TRUE), y=ag
 x = x + theme_bw() + scale_x_discrete("Cluster") + scale_y_continuous("Age BP")
 x = x + ggtitle("Cluster occurrence by age")
 print(x)
+
+x = ggplot(plot.df, aes(age, fill=cluster.ord)) + 
+  geom_density(alpha=0.5) + scale_fill_brewer(palette="Dark2")
+x = x + theme_bw() 
+x = x + ggtitle("Cluster occurrence by age")
+print(x)
+

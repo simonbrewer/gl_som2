@@ -41,5 +41,25 @@ grid.som <-somgrid(gridX, gridY, "hexagonal")
 ## ----cache=FALSE---------------------------------------------------------
 poll.som <- som(as.matrix(poll.s), grid = grid.som, rlen=1500)
 
+## Clustering goes here
+## ------------------------------------------------------------------------
+som.nb = graph2nb(gabrielneigh(grid.som$pts),sym=TRUE)
+#plot(som.nb, grid.som$pts)
+
+## ------------------------------------------------------------------------
+lcosts <- nbcosts(som.nb, poll.som$codes[[1]])
+nb.w <- nb2listw(som.nb, lcosts, style="B")
+
+## ------------------------------------------------------------------------
+nbclus = 6
+som.mst <- mstree(nb.w,nbclus-1)
+plot(som.mst, grid.som$pts, col=2,       
+     cex.lab=.7, cex.circles=0.035, fg="blue")
+
+## ------------------------------------------------------------------------
+som.skat <- skater(som.mst[,1:2], poll.som$codes[[1]], ncuts=(nbclus-1))
+som.clus = som.skat$groups
+table(som.clus)
+
 save.image("./largeSOM.RData")
 ## STOP HERE
