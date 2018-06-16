@@ -59,6 +59,23 @@ plot(som.mst, grid.som$pts, col=2,
 ## ------------------------------------------------------------------------
 som.skat <- skater(som.mst[,1:2], poll.som$codes[[1]], ncuts=(nbclus-1))
 som.clus = som.skat$groups
+
+## Assign ages to nodes
+nnodes = gridX*gridY
+nodeAge = rep(NA, nnodes)
+grid.dist = unit.distances(poll.som$grid)
+for (i in 1:nnodes) {
+  nodeID = which(poll.som$unit.classif == i)
+  if (length(nodeID) >0) {
+    nodeAge[i] = mean(ages[nodeID])
+  } else {
+    nID = which(grid.dist[i,] < 2)
+    nodeID = which(poll.som$unit.classif %in% nID)
+    nodeAge[i] = mean(ages[nodeID], na.rm=TRUE)
+  }
+}
+som.clus.ord = reorder(som.clus, nodeAge*-1, FUN=median, na.rm=TRUE)
+som.clus.ord = factor(som.clus.ord, labels=1:6)
 table(som.clus)
 
 save.image("./largeSOM.RData")

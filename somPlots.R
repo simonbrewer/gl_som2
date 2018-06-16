@@ -50,14 +50,15 @@ print(x)
 ## ------------------------------------------------------------------------
 plot.df = data.frame(age=nodeAge, cluster=as.factor(som.clus))
 plot.df$cluster.ord = reorder(plot.df$cluster, plot.df$age*-1, FUN=median, na.rm=TRUE)
+plot.df$cluster.ord = som.clus.ord
 
-x = ggplot(plot.df, aes(x=reorder(cluster, age*-1, FUN=median, na.rm=TRUE), y=age, fill=cluster)) + 
+x = ggplot(plot.df, aes(x=cluster.ord, y=age, fill=cluster)) + 
   geom_boxplot() + scale_fill_brewer(palette="Dark2")
 x = x + theme_bw() + scale_x_discrete("Cluster") + scale_y_continuous("Age BP")
 x = x + ggtitle("Cluster occurrence by age")
 print(x)
 
-x = ggplot(plot.df, aes(x=reorder(cluster, age*-1, FUN=median, na.rm=TRUE), y=age, fill=cluster)) + 
+x = ggplot(plot.df, aes(x=cluster.ord, y=age, fill=cluster)) + 
   geom_violin() + scale_fill_brewer(palette="Dark2")
 x = x + theme_bw() + scale_x_discrete("Cluster") + scale_y_continuous("Age BP")
 x = x + ggtitle("Cluster occurrence by age")
