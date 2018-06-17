@@ -1,4 +1,5 @@
 library(kohonen)
+library(RColorBrewer)
 
 load("largeSOM.RData")
 

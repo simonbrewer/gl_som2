@@ -13,10 +13,12 @@ sites = read.csv("./sitesinabox3_use.csv")
 gl <- read.csv("./composite/GreatLakesAll_500.csv")
 nsample = dim(gl)[1]
 sitesf <- rep(NA, nsample)
+sitesn <- rep(NA, nsample)
 sites.list = strsplit(as.character(gl$Sample), "_")
 for (i in 1:nsample) {
   sitesf[i] <- as.character(sites$site.name[which(sites$site.id==sites.list[[i]][2] & 
-                                      sites$dataset.id==sites.list[[i]][3])])
+                                                    sites$dataset.id==sites.list[[i]][3])])
+  sitesf[i] <- as.character(paste0(sites.list[[i]][2],"_",sites.list[[i]][3]))
 }
 
 ages <- gl$YrBP
