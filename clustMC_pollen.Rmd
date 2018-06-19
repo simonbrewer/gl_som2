@@ -1,7 +1,24 @@
+---
+title: "SOM Markov Chain"
+author: "Simon Brewer"
+date: "6/18/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load data and libraries
+
+```{r}
 require(markovchain)
 require(kohonen)
-
 load("largeSOM.RData")
+```
+
+To start, we need to assign a cluster to each pollen sample from the original data. First make a data frame with site number, age and cluster number (the loop seems like overkill here):
+```{r}
 clus.df = data.frame(site = as.factor(sitesn), ages, cluster = rep(NA, length(ages)))
 
 for (i in 1:nnodes) {
@@ -11,7 +28,11 @@ for (i in 1:nnodes) {
     
   }
 }
+```
 
+Now make a matrix of site cluster allocations. Loop through the data frame made in the previous step and add the cluster for that particular node to the samples in the node:
+
+```{r}
 ages.uniq = unique(sort(ages))
 nages = length(ages.uniq)
 
@@ -26,22 +47,32 @@ for (i in 1:dim(clus.df)[1]) {
   
   poll.clus.mat[ageID, siteID] <- clus.df$cluster[i]
 }
+```
 
-# ## Markov chain based on the nodes
+All done? Good. Now fit a Markov Chain by MLE and visualize:
+```{r}
 clusts.mc = markovchainFit(as.data.frame(poll.clus.mat[,1:20]))
-# 
+clusts.mc$estimate
+```
+
+```{r}
+plot(clusts.mc$estimate, edge.arrow.size=0.5, 
+     edge.label.cex=0.7, edge.curved=0.2)
+```
+
+```{r echo=FALSE}
 pdf("somMC_pollen.pdf")
-plot(clusts.mc$estimate)
+plot(clusts.mc$estimate, edge.arrow.size=0.5, 
+     edge.label.cex=0.7, edge.curved=0.2)
 dev.off()
-# 
+```
+
+```{r}
 # communicatingClasses(clusts.mc$estimate)
 # recurrentClasses(clusts.mc$estimate)
 # absorbingStates(clusts.mc$estimate)
 # transientStates(clusts.mc$estimate)
-# steadyStates(clusts.mc$estimate)
+steadyStates(clusts.mc$estimate)
 # canonicForm(clusts.mc$estimate)
 # period(clusts.mc$estimate)
-# 
-# ## Need Markov Chain based on the original samples
-# ## Node based MC has non-standard age delta between nodes
-# ## Need matrix with row per age and column per site and fill with cluster attribution
+```

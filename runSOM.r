@@ -18,7 +18,7 @@ sites.list = strsplit(as.character(gl$Sample), "_")
 for (i in 1:nsample) {
   sitesf[i] <- as.character(sites$site.name[which(sites$site.id==sites.list[[i]][2] & 
                                                     sites$dataset.id==sites.list[[i]][3])])
-  sitesf[i] <- as.character(paste0(sites.list[[i]][2],"_",sites.list[[i]][3]))
+  sitesn[i] <- as.character(paste0(sites.list[[i]][2],"_",sites.list[[i]][3]))
 }
 
 ages <- gl$YrBP
