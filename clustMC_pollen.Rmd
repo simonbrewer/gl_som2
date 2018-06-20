@@ -14,6 +14,7 @@ Load data and libraries
 ```{r}
 require(markovchain)
 require(kohonen)
+require(RColorBrewer)
 load("largeSOM.RData")
 ```
 
@@ -56,8 +57,11 @@ clusts.mc$estimate
 ```
 
 ```{r}
+w <- t(clusts.mc$estimate@transitionMatrix)
+w <- w[which(w>0)]
 plot(clusts.mc$estimate, edge.arrow.size=0.5, 
-     edge.label.cex=0.7, edge.curved=0.2)
+     edge.label.cex=0.1, edge.curved=0.2, edge.width=w*10,
+     vertex.size=20, vertex.color=2)
 ```
 
 ```{r echo=FALSE}
@@ -65,6 +69,22 @@ pdf("somMC_pollen.pdf")
 plot(clusts.mc$estimate, edge.arrow.size=0.5, 
      edge.label.cex=0.7, edge.curved=0.2)
 dev.off()
+pdf("somMC_pollen_2.pdf")
+plot(clusts.mc$estimate, edge.arrow.size=0.5, 
+     edge.label.cex=0.1, edge.curved=0.2, edge.width=w*10,
+     vertex.size=20)
+dev.off()
+```
+
+Convert to igraph
+```{r}
+g <- as(clusts.mc$estimate, "igraph")
+min <- 0.5
+w <- clusts.mc$estimate@transitionMatrix
+w <- w[which(w>0)]
+plot(g, edge.label=NA, edge.arrow.size=0.5, 
+     edge.label.cex=0.7, edge.curved=0.2, 
+     edge.width=w*10)
 ```
 
 ```{r}
