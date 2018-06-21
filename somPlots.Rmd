@@ -10,6 +10,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ### Data and libraries
+
+**Make sure that "runSOM.R" has been run first.**
 ```{r}
 library(spdep)
 library(kohonen)
@@ -74,32 +76,32 @@ plot(som.skat, grid.som$pts, cex.circles=0.035, cex.lab=.7)
 myRCBcls = function(n, pal="Dark2") {
   brewer.pal(n, pal)
 }
-plot(poll.som, type="property", property=as.numeric(som.clus), main="Cluster map", 
+plot(poll.som, type="property", property=as.numeric(som.clus.ord), main="Cluster map", 
      palette.name=myRCBcls, ncolors=nbclus, heatkeywidth = .5)
-add.cluster.boundaries(poll.som, som.clus)
+add.cluster.boundaries(poll.som, som.clus.ord)
 ```
 
 #### Clusters in time 
 ```{r}
-plot.df = data.frame(age=nodeAge, cluster=as.factor(som.clus))
-plot.df$cluster.ord = reorder(plot.df$cluster, plot.df$age*-1, FUN=median, na.rm=TRUE)
-plot.df$cluster.ord = som.clus.ord
+plot.df = data.frame(age=nodeAge, cluster=as.factor(som.clus.ord))
+# plot.df$cluster.ord = reorder(plot.df$cluster, plot.df$age*-1, FUN=median, na.rm=TRUE)
+# plot.df$cluster.ord = som.clus.ord
 
-x = ggplot(plot.df, aes(x=cluster.ord, y=age, fill=cluster)) + 
+x = ggplot(plot.df, aes(x=cluster, y=age, fill=cluster)) + 
   geom_boxplot() + scale_fill_brewer(palette="Dark2")
 x = x + theme_bw() + scale_x_discrete("Cluster") + scale_y_continuous("Age BP")
 x = x + ggtitle("Cluster occurrence by age")
 print(x)
 
-x = ggplot(plot.df, aes(x=cluster.ord, y=age, fill=cluster)) + 
+x = ggplot(plot.df, aes(x=cluster, y=age, fill=cluster)) + 
   geom_violin() + scale_fill_brewer(palette="Dark2")
 x = x + theme_bw() + scale_x_discrete("Cluster") + scale_y_continuous("Age BP")
 x = x + ggtitle("Cluster occurrence by age")
 print(x)
 
-x = ggplot(plot.df, aes(age, fill=cluster.ord)) + 
+x = ggplot(plot.df, aes(age, fill=cluster)) + 
   geom_density(alpha=0.5) + scale_fill_brewer(palette="Dark2")
-x = x + theme_bw() 
+x = x + theme_bw() + scale_x_reverse()
 x = x + ggtitle("Cluster occurrence by age")
 print(x)
 ```
@@ -107,10 +109,11 @@ print(x)
 #### Abundances by cluster
 ```{r}
 plot.df = cbind(melt(poll.som$codes[[1]], varnames = c("Grid","Taxa"),
-                     value.name = "Score"), Clus=as.factor(rep(som.clus, 22)))
+                     value.name = "Score"), Cluster=as.factor(rep(som.clus.ord, 22)))
 
-x = ggplot(plot.df, aes(x=Taxa, y=Score, fill=Clus)) + geom_boxplot() + facet_wrap(~Clus)
-x = x + ggtitle("All abundance values") + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+x = ggplot(plot.df, aes(x=Taxa, y=Score, fill=Cluster)) + geom_boxplot() + facet_wrap(~Cluster)
+x = x + ggtitle("All abundance values") + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
 print(x)
 ```
 
@@ -125,7 +128,7 @@ taxNames = names(poll)
 for (i in 1:length(taxNames)) {
   plot(poll.som, type="property", property=poll.som$codes[[1]][,taxNames[i]], main=taxNames[i], 
        palette.name=myRCBpol, ncolors=9)
-  add.cluster.boundaries(poll.som, som.clus)
+  add.cluster.boundaries(poll.som, som.clus.ord)
 }
 ```
 

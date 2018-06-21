@@ -78,13 +78,20 @@ dev.off()
 
 Convert to igraph
 ```{r}
+require(RColorBrewer)
+my.pal = brewer.pal(6, "Dark2")
 g <- as(clusts.mc$estimate, "igraph")
 min <- 0.5
 w <- clusts.mc$estimate@transitionMatrix
 w <- w[which(w>0)]
 plot(g, edge.label=NA, edge.arrow.size=0.5, 
      edge.label.cex=0.7, edge.curved=0.2, 
-     edge.width=w*10)
+     edge.width=w*10, vertex.color = my.pal)
+pdf("somMC_pollen_3.pdf")
+plot(g, edge.label=NA, edge.arrow.size=0.5, 
+     edge.label.cex=0.7, edge.curved=0.2, 
+     edge.width=w*10, vertex.color = my.pal)
+dev.off()
 ```
 
 ```{r}

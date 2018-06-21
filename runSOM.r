@@ -76,7 +76,7 @@ for (i in 1:nnodes) {
     nodeAge[i] = mean(ages[nodeID], na.rm=TRUE)
   }
 }
-som.clus.ord = reorder(som.clus, nodeAge*-1, FUN=median, na.rm=TRUE)
+som.clus.ord = reorder(som.clus, nodeAge*1, FUN=median, na.rm=TRUE)
 som.clus.ord = factor(som.clus.ord, labels=1:6)
 table(som.clus)
 

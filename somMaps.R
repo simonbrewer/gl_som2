@@ -1,5 +1,7 @@
 set.seed(3980)
 
+## NEED TO RUN clustMC_pollen.Rmd FIRST ##
+
 require(kohonen)
 require(RColorBrewer)
 require(ggmap)
@@ -7,7 +9,9 @@ load("largeSOM.RData")
 #clustsamp = poll.som.kmean$cluster[poll.som$unit.classif]
 clustsamp = som.clus.ord
 
-gl$Site = substr(gl$Sample, 0, 4)
+gl$Site = sitesn
+
+site.crd = data.frame(lon=sites$lon, lat=sites$lat)
 
 ## Distance function
 calcDist = function(x) {
@@ -32,12 +36,13 @@ calcDist = function(x) {
 ## Time series
 tage = NULL
 tdist = NULL
-sites = unique(gl$Site)
-for (i in 1:length(sites)) {
-  sID = which(gl$Site == sites[i])
+sites.v = unique(gl$Site)
+
+for (i in 1:length(sites.v)) {
+  sID = which(gl$Site == sites.v[i])
   
   s.ages = ages[sID]
-  s.clus = clustsamp[sID]
+  s.clus = as.numeric(clustsamp[sID])
   
   ## Transitions
   tID = which(diff(s.clus)!=0)
@@ -59,8 +64,8 @@ plot(sort(unique(gl$age500)), tapply(tdist, gl$age500, mean, na.rm=TRUE),
 dev.off()
 
 ## Maps
-llcrds = read.csv("siteCrds.csv")
-llcrds$ent = sites
+llcrds = data.frame(lon=sites$lon, lat=sites$lat)
+llcrds$ent = sites.v
 
 samplon = rep(NA, length(ages))
 samplat = rep(NA, length(ages))
@@ -71,7 +76,7 @@ for (i in 1:length(sites)) {
   samplat[cID] = llcrds$lat[i]
 }
 
-boxplot(ages ~ clustsamp, horizontal=TRUE, ylim=c(12000,0))
+boxplot(ages ~ som.clus.ord, horizontal=TRUE, ylim=c(12000,0))
 
 map.df = data.frame(site=gl$Site, long=samplon, lat=samplat, 
                     ages=ages, clust=factor(clustsamp, levels=c(1,2,3,4,5,6)))
