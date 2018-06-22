@@ -7,7 +7,7 @@ require(RColorBrewer)
 require(ggmap)
 load("largeSOM.RData")
 #clustsamp = poll.som.kmean$cluster[poll.som$unit.classif]
-clustsamp = som.clus.ord
+clustsamp = clus.df$cluster
 
 gl$Site = sitesn
 
@@ -76,16 +76,16 @@ for (i in 1:length(sites)) {
   samplat[cID] = llcrds$lat[i]
 }
 
-boxplot(ages ~ som.clus.ord, horizontal=TRUE, ylim=c(12000,0))
+boxplot(ages ~ cluster, clus.df, horizontal=TRUE, ylim=c(12000,0))
 
 map.df = data.frame(site=gl$Site, long=samplon, lat=samplat, 
-                    ages=ages, clust=factor(clustsamp, levels=c(1,2,3,4,5,6)))
+                    ages=clus.df$ages, cluster=factor(clus.df$cluster))
 
 png("map_points.png", width=1200, height=800)
-mymaps = ggplot(map.df, aes(long,lat, fill=clust))
-mymaps = mymaps + geom_point(size=3)
+mymaps = ggplot(map.df, aes(long,lat, fill=cluster))
+mymaps = mymaps + geom_point(size=3, pch=21)
 mymaps = mymaps + facet_wrap(~ages)
-mymaps = mymaps + scale_fill_brewer(palette="Set1")
+mymaps = mymaps + scale_fill_brewer(palette="Dark2")
 mymaps
 dev.off()
 
@@ -94,11 +94,11 @@ usamap <- map_data("state")
 png("map_points2.png", width=1200, height=800)
 #pdf("map_points2.pdf", width=1200, height=800)
 #postscript("map_points2.eps", paper="special", width=1200, height=800)
-mymaps = ggplot(map.df, aes(long,lat, fill=clust))
+mymaps = ggplot(map.df, aes(long,lat, fill=cluster))
 mymaps = mymaps + annotation_map(usamap, fill="white", col='grey50')
 mymaps = mymaps + geom_point(size=3, pch=21)
-mymaps = mymaps + scale_x_continuous(limits=c(-90,-84.5))
-mymaps = mymaps + scale_y_continuous(limits=c(45.5,47.5))
+mymaps = mymaps + scale_x_continuous(limits=c(-92,-84))
+mymaps = mymaps + scale_y_continuous(limits=c(45,48))
 mymaps = mymaps + scale_fill_brewer(palette="Dark2", drop=FALSE) + coord_fixed()
 mymaps = mymaps + facet_wrap(~ages)
 print(mymaps)
@@ -117,11 +117,11 @@ allages = sort(unique(map.df$ages))
 for (i in length(allages):1) {
 #   map.df2 = subset(map.df, ages==allages[i])
 #   map.df2$clust = factor(map.df2$clust, levels=c(1,2,3,4,5,6))
-  mymaps = ggplot(subset(map.df, ages==allages[i]), aes(long,lat, fill=clust))
+  mymaps = ggplot(subset(map.df, ages==allages[i]), aes(long,lat, fill=cluster))
   mymaps = mymaps + annotation_map(usamap, fill="white", col='grey50')
   mymaps = mymaps + geom_point(size=5, pch=21)
-  mymaps = mymaps + scale_x_continuous(limits=c(-90,-84.5))
-  mymaps = mymaps + scale_y_continuous(limits=c(45.5,47.5))
+  mymaps = mymaps + scale_x_continuous(limits=c(-92,-84))
+  mymaps = mymaps + scale_y_continuous(limits=c(45,48))
   mymaps = mymaps + scale_fill_brewer(palette="Dark2", drop=FALSE) + coord_fixed()
   mymaps = mymaps + ggtitle(paste("SOM classes:",
                                   sprintf("%05d", allages[i]),"cal. bp"))
@@ -136,11 +136,11 @@ saveGIF({
   for (i in length(allages):1) {
     #   map.df2 = subset(map.df, ages==allages[i])
     #   map.df2$clust = factor(map.df2$clust, levels=c(1,2,3,4,5,6))
-    mymaps = ggplot(subset(map.df, ages==allages[i]), aes(long,lat, fill=clust))
+    mymaps = ggplot(subset(map.df, ages==allages[i]), aes(long,lat, fill=cluster))
     mymaps = mymaps + annotation_map(usamap, fill="white", col='grey50')
     mymaps = mymaps + geom_point(size=5, pch=21)
-    mymaps = mymaps + scale_x_continuous(limits=c(-90,-84.5))
-    mymaps = mymaps + scale_y_continuous(limits=c(45.5,47.5))
+    mymaps = mymaps + scale_x_continuous(limits=c(-92,-84))
+    mymaps = mymaps + scale_y_continuous(limits=c(45,48))
     mymaps = mymaps + scale_fill_brewer(palette="Dark2", drop=FALSE) + coord_fixed()
     mymaps = mymaps + ggtitle(paste("SOM classes:",
                                     sprintf("%05d", allages[i]),"cal. bp"))
@@ -148,11 +148,13 @@ saveGIF({
   }
 }, movie.name = "map_points_all.gif", interval = 0.1)
 
+
+stop()
 ## Differences
 map.df$diffs = rep(NA, length(ages))
 for (i in 1:length(sites)) {
   siteID = which(map.df$site==sites[i])
-  map.df$diffs[siteID] = c(diff(as.numeric(map.df$clust[siteID])),0) 
+  map.df$diffs[siteID] = c(diff(as.numeric(map.df$cluster[siteID])),0) 
 }
 
 map.df$diffs[which(map.df$diffs !=0)] <- 1
