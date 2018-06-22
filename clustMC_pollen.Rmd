@@ -18,20 +18,7 @@ require(RColorBrewer)
 load("largeSOM.RData")
 ```
 
-To start, we need to assign a cluster to each pollen sample from the original data. First make a data frame with site number, age and cluster number (the loop seems like overkill here):
-```{r}
-clus.df = data.frame(site = as.factor(sitesn), ages, cluster = rep(NA, length(ages)))
-
-for (i in 1:nnodes) {
-  nodeID = which(poll.som$unit.classif == i)
-  if (length(nodeID) > 0) {
-    clus.df$cluster[nodeID] = som.clus.ord[i]
-    
-  }
-}
-```
-
-Now make a matrix of site cluster allocations. Loop through the data frame made in the previous step and add the cluster for that particular node to the samples in the node:
+Make a matrix of site cluster allocations. Loop through the data frame `clus.df` made in the `runSOM.R` script and add the cluster for that particular node to the samples in the node:
 
 ```{r}
 ages.uniq = unique(sort(ages))

@@ -80,5 +80,16 @@ som.clus.ord = reorder(som.clus, nodeAge*1, FUN=median, na.rm=TRUE)
 som.clus.ord = factor(som.clus.ord, labels=1:6)
 table(som.clus)
 
+## Assign a cluster to each pollen sample from the original data
+clus.df = data.frame(site = as.factor(sitesn), ages, cluster = rep(NA, length(ages)))
+
+for (i in 1:nnodes) {
+  nodeID = which(poll.som$unit.classif == i)
+  if (length(nodeID) > 0) {
+    clus.df$cluster[nodeID] = som.clus.ord[i]
+    
+  }
+}
+
 save.image("./largeSOM.RData")
 ## STOP HERE
