@@ -70,10 +70,10 @@ llcrds$ent = sites.v
 samplon = rep(NA, length(ages))
 samplat = rep(NA, length(ages))
 
-for (i in 1:length(sites)) {
-  cID = which(gl$Site == llcrds$ent[i])
-  samplon[cID] = llcrds$lon[i]
-  samplat[cID] = llcrds$lat[i]
+for (i in 1:dim(sites)[1]) {
+  cID = which(gl$Site == paste0(sites$site.id[i],"_",sites$dataset.id[i]))
+  samplon[cID] = sites$lon[i]
+  samplat[cID] = sites$lat[i]
 }
 
 boxplot(ages ~ cluster, clus.df, horizontal=TRUE, ylim=c(12000,0))

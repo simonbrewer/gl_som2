@@ -136,16 +136,17 @@ for (i in 1:length(taxNames)) {
 REMOVED FOR NOW - NEED TO CHECK CODE
 
 ```{r}
-# allsites = unique(sitesn)
-# for (i in 1:length(allsites)) {
-#   siteID = which(sitesn==allsites[i])
-#   # plot(poll.som, type="dist.neighbours", keepMargins=TRUE, main=allsites[i])
-#   plot(poll.som, type="property", property=poll.som$codes[[1]][,"Tsuga"], 
-#        main=allsites[i], 
-#        palette.name=myRCBpol, ncolors=9)
-#   add.cluster.boundaries(poll.som, som.clus)
-#   site.crd <- poll.som$grid$pts[poll.som$unit.classif,][siteID,]
-#   lines(site.crd, lwd=2)
-#   points(jitter(site.crd))
-# }
+allsites = unique(sitesn)
+length(allsites)
+for (i in 1:length(allsites)) {
+  siteID = which(sitesn==allsites[i])
+  # plot(poll.som, type="dist.neighbours", keepMargins=TRUE, main=allsites[i])
+  plot(poll.som, type="property", property=poll.som$codes[[1]][,"Tsuga"],
+       main=allsites[i], keepMargins=TRUE,
+       palette.name=myRCBpol, ncolors=9)
+  add.cluster.boundaries(poll.som, som.clus)
+  site.crd <- poll.som$grid$pts[poll.som$unit.classif,][siteID,]
+  lines(site.crd, lwd=2)
+  points(jitter(site.crd))
+}
 ```
