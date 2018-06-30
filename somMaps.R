@@ -90,7 +90,18 @@ mymaps
 dev.off()
 
 library(maps)
+worldmap <- map_data("world")
 usamap <- map_data("state")
+
+mymaps = ggplot(map.df, aes(long,lat, fill=cluster))
+# mymaps = mymaps + annotation_map(worldmap, fill="white", col='grey50')
+mymaps = mymaps + annotation_map(usamap, fill="white", col='grey50')
+mymaps = mymaps + geom_point(size=3, pch=21)
+mymaps = mymaps + scale_x_continuous(limits=c(-92,-84))
+mymaps = mymaps + scale_y_continuous(limits=c(45,48))
+print(mymaps)
+stop()
+
 png("map_points2.png", width=1200, height=800)
 #pdf("map_points2.pdf", width=1200, height=800)
 #postscript("map_points2.eps", paper="special", width=1200, height=800)
@@ -111,7 +122,6 @@ print(mymaps)
 # mymaps
 dev.off()
 
-usamap <- map_data("state")
 pdf("map_points_all.pdf")
 allages = sort(unique(map.df$ages))
 for (i in length(allages):1) {

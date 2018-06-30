@@ -10,7 +10,7 @@ require(reshape2)
 sites = read.csv("./sitesinabox3_use.csv")
 
 ## Pre-processing
-gl <- read.csv("./composite/GreatLakesAll_500.csv")
+gl <- read.csv("./data/GreatLakesAll_500.csv")
 nsample = dim(gl)[1]
 sitesf <- rep(NA, nsample)
 sitesn <- rep(NA, nsample)
