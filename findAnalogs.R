@@ -63,12 +63,25 @@ hist(poll.fos$Picea, freq=FALSE, add=TRUE)
 ## Run analogs
 ###############################################################################
 ## For SOM nodes
+nbana = 1
 nnodes = dim(poll.fos)[1]
 out.analog.som <- analog(poll.ref, poll.fos, method="chord")
+som.lcr = matrix(NA, nrow=nnodes, ncol=nbana)
+som.gel = matrix(NA, nrow=nnodes, ncol=nbana)
 for (i in 1:nnodes) {
-  ana.sort = sort(out.analog.som$analogs[,i])[1]
-  ana.id = as.numeric(substr(names(ana.sort),2,6))
+  ana.sort = sort(out.analog.som$analogs[,i])[1:nbana]
+  ana.id = as.numeric(names(ana.sort))
+  
+  som.lcr[i,] <- nampd.veg$NASLCR[ana.id]
+  som.gel[i,] <- nampd.veg$GLEC21[ana.id]
 }
+
+myRCBcls = function(n, pal="Set3") {
+  brewer.pal(n, pal)
+}
+plot(poll.som, type="property", property=as.factor(som.gel[,1]), main="Global Ecosystems", 
+     palette.name=myRCBcls, ncolors=length(unique(som.gel[,1])), heatkeywidth = .5)
+add.cluster.boundaries(poll.som, som.clus.ord)
 
 ###############################################################################
 ## For clusters

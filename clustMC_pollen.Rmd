@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Load data and libraries
 
-```{r}
+```{r message=FALSE}
 require(markovchain)
 require(kohonen)
 require(RColorBrewer)
@@ -21,7 +21,7 @@ load("largeSOM.RData")
 Make a matrix of site cluster allocations. Loop through the data frame `clus.df` made in the `runSOM.R` script and add the cluster for that particular node to the samples in the node:
 
 ```{r}
-ages.uniq = unique(sort(ages))
+ages.uniq = rev(unique(sort(ages))) ## Reverse to get proper dynamics, you fool!
 nages = length(ages.uniq)
 
 sitesn.uniq = levels(clus.df$site)
@@ -39,7 +39,7 @@ for (i in 1:dim(clus.df)[1]) {
 
 All done? Good. Now fit a Markov Chain by MLE and visualize:
 ```{r}
-clusts.mc = markovchainFit(as.data.frame(poll.clus.mat[,1:20]))
+clusts.mc = markovchainFit(as.data.frame(t(poll.clus.mat)))
 clusts.mc$estimate
 ```
 
@@ -47,8 +47,8 @@ clusts.mc$estimate
 w <- t(clusts.mc$estimate@transitionMatrix)
 w <- w[which(w>0)]
 plot(clusts.mc$estimate, edge.arrow.size=0.5, 
-     edge.label.cex=0.1, edge.curved=0.2, edge.width=w*10,
-     vertex.size=20, vertex.color=2)
+     edge.label.cex=0.75, edge.curved=0.2, #edge.width=w*5,
+     vertex.size=20)
 ```
 
 ```{r echo=FALSE}
@@ -66,19 +66,46 @@ dev.off()
 Convert to igraph
 ```{r}
 require(RColorBrewer)
+require(igraph)
 my.pal = brewer.pal(6, "Dark2")
 g <- as(clusts.mc$estimate, "igraph")
-min <- 0.5
+min <- 0.0001
 w <- clusts.mc$estimate@transitionMatrix
 w <- w[which(w>0)]
-plot(g, edge.label=NA, edge.arrow.size=0.5, 
+plot(g, edge.label=ifelse(E(g)$prob>=min, round(E(g)$prob,3), NA),
      edge.label.cex=0.7, edge.curved=0.2, 
-     edge.width=w*10, vertex.color = my.pal)
+     vertex.color = my.pal, edge.width=2)
+# plot(g, edge.label=NA, edge.arrow.size=0.5, 
+#      edge.label.cex=0.7, edge.curved=0.2, 
+#      edge.width=w*10, vertex.color = my.pal)
 pdf("somMC_pollen_3.pdf")
-plot(g, edge.label=NA, edge.arrow.size=0.5, 
+plot(g, edge.label=ifelse(E(g)$prob>=min, round(E(g)$prob,3), NA),
      edge.label.cex=0.7, edge.curved=0.2, 
-     edge.width=w*10, vertex.color = my.pal)
+     vertex.color = my.pal, edge.width=2)
 dev.off()
+```
+```{r}
+my.pal = brewer.pal(6, "Dark2")
+g <- as(clusts.mc$estimate, "igraph")
+min <- 0.0001
+w <- clusts.mc$estimate@transitionMatrix
+w[which(w==0)] <- 1e-6
+pdf("somMC_pollen_4.pdf")
+plot(g, edge.label=ifelse(E(g)$prob>=min, round(E(g)$prob,3), NA),
+     edge.label.cex=0.7, edge.curved=0.2, 
+     vertex.color = my.pal, edge.width=log10(E(g)$prob*5000))
+dev.off()
+```
+
+## Millenial basis
+
+```{r}
+age.step = seq(0,11000, by=1000)
+for (i in 1:length(age.step)) {
+  age.id = which(ages.uniq <= age.step[i]+500 & ages.uniq > age.step[i]-500)
+  poll.clus.mat.tmp = poll.clus.mat[age.id,]
+  clusts.mc = markovchainFit(as.data.frame(t(poll.clus.mat.tmp[,1:20])))
+}
 ```
 
 ```{r}
