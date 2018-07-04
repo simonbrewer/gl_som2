@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Data and libraries
 
 **Make sure that "runSOM.R" has been run first.**
-```{r}
+```{r message=FALSE}
 library(spdep)
 library(kohonen)
 library(RColorBrewer)
