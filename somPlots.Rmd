@@ -34,6 +34,14 @@ plot(poll.som, type="changes", main="Training: SOM 31x30")
 plot(poll.som, type="counts", main="Counts: SOM 31x30")
 ```
 
+### Codebook plot
+```{r}
+plot(poll.som, type="codes", main="Counts: SOM 31x30")
+png("codebook.png", width = 4000, height = 4000)
+plot(poll.som, type="codes", main="Counts: SOM 31x30", lwd = 3)
+dev.off()
+```
+
 ### Distance plot
 ```{r}
 plot(poll.som, type="dist.neighbours", main="Distances: SOM 31x30")
@@ -128,7 +136,7 @@ taxNames = names(poll)
 for (i in 1:length(taxNames)) {
   plot(poll.som, type="property", property=poll.som$codes[[1]][,taxNames[i]], main=taxNames[i], 
        palette.name=myRCBpol, ncolors=9)
-  add.cluster.boundaries(poll.som, som.clus.ord)
+  # add.cluster.boundaries(poll.som, som.clus.ord)
 }
 ```
 
@@ -144,6 +152,25 @@ for (i in 1:length(allsites)) {
   plot(poll.som, type="property", property=poll.som$codes[[1]][,"Tsuga"],
        main=allsites[i], keepMargins=TRUE,
        palette.name=myRCBpol, ncolors=9)
+  add.cluster.boundaries(poll.som, som.clus)
+  site.crd <- poll.som$grid$pts[poll.som$unit.classif,][siteID,]
+  lines(site.crd, lwd=2)
+  points(jitter(site.crd))
+}
+```
+
+### Site trajectories by cluster
+REMOVED FOR NOW - NEED TO CHECK CODE
+
+```{r}
+allsites = unique(sitesn)
+length(allsites)
+for (i in 1:length(allsites)) {
+  siteID = which(sitesn==allsites[i])
+  # plot(poll.som, type="dist.neighbours", keepMargins=TRUE, main=allsites[i])
+  plot(poll.som, type="property", property=as.numeric(som.clus.ord),
+       main=allsites[i], keepMargins=TRUE,
+       palette.name=myRCBcls, ncolors=nbclus, heatkeywidth = .5)
   add.cluster.boundaries(poll.som, som.clus)
   site.crd <- poll.som$grid$pts[poll.som$unit.classif,][siteID,]
   lines(site.crd, lwd=2)
