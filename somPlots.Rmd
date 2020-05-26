@@ -152,7 +152,7 @@ for (i in 1:length(allsites)) {
   plot(poll.som, type="property", property=poll.som$codes[[1]][,"Tsuga"],
        main=allsites[i], keepMargins=TRUE,
        palette.name=myRCBpol, ncolors=9)
-  add.cluster.boundaries(poll.som, som.clus)
+  # add.cluster.boundaries(poll.som, som.clus)
   site.crd <- poll.som$grid$pts[poll.som$unit.classif,][siteID,]
   lines(site.crd, lwd=2)
   points(jitter(site.crd))
