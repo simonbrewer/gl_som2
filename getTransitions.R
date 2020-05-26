@@ -2,6 +2,7 @@
 
 require(markovchain)
 require(kohonen)
+require(ggpubr)
 
 load("largeSOM.RData")
 clus.df = data.frame(site = as.factor(sitesn), ages, cluster = rep(NA, length(ages)))
@@ -27,3 +28,8 @@ for (i in 1:nsites) {
   clus.sub$diff = c(diff(clus.sub$cluster), NA)
   transitions = c(transitions, clus.sub$ages[which(clus.sub$diff >0)])
 }
+
+write.csv(transitions, "transitions.csv", row.names = FALSE)
+
+plot.df = data.frame(transitions)
+gghistogram(plot.df, x = "transitions", binwidth = 1000)
