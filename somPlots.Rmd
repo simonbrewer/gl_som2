@@ -42,6 +42,13 @@ plot(poll.som, type="codes", main="Counts: SOM 31x30", lwd = 3)
 dev.off()
 ```
 
+```{r}
+plot(poll.som, type="codes", main="Counts: SOM 31x30", codeRendering = "stars")
+png("codebook_stars.png", width = 4000, height = 4000)
+plot(poll.som, type="codes", main="Counts: SOM 31x30", , codeRendering = "stars")
+dev.off()
+```
+
 ### Distance plot
 ```{r}
 plot(poll.som, type="dist.neighbours", main="Distances: SOM 31x30")
