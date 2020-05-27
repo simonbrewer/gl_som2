@@ -47,6 +47,9 @@ plot(poll.som, type="codes", main="Counts: SOM 31x30", codeRendering = "stars")
 png("codebook_stars.png", width = 4000, height = 4000)
 plot(poll.som, type="codes", main="Counts: SOM 31x30", , codeRendering = "stars")
 dev.off()
+png("codebook_segs.png", width = 4000, height = 4000)
+plot(poll.som, type="codes", main="Counts: SOM 31x30", , codeRendering = "segments")
+dev.off()
 ```
 
 ### Distance plot
