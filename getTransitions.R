@@ -34,4 +34,19 @@ write.csv(transitions, "transitions.csv", row.names = FALSE)
 plot.df = data.frame(transitions)
 gghistogram(plot.df, x = "transitions", binwidth = 1000,
             main = "Pollen state transitions over time", xlab = "ageBP") +
-  scale_x_reverse()
+  scale_x_reverse() 
+
+mybrks = seq(-500, 11500, by = 1000)
+mymids = seq(0, 11000, by = 1000)
+nbit = 1000
+ntrans = length(transitions)
+count.mat = matrix(NA, nrow = length(mymids), ncol = nbit)
+for (i in 1:nbit) {
+  trans.hist = hist(sample(ages.uniq, ntrans), plot = FALSE, breaks = mybrks)
+  count.mat[,i] = trans.hist$counts
+}
+
+gghistogram(plot.df, x = "transitions", binwidth = 1000,
+            main = "Pollen state transitions over time", xlab = "ageBP") +
+  scale_x_reverse() + geom_hline(yintercept = 70 / length(mymids), lty = 2)  + 
+  geom_hline(yintercept = 8.16, lty = 4)
