@@ -62,7 +62,11 @@ pdf("tdist.pdf")
 plot(sort(unique(gl$age500)), tapply(tdist, gl$age500, mean, na.rm=TRUE),
      xlab="AgeBP", ylab="Mean distance", type='b')
 dev.off()
-
+plot.df = data.frame(age = sort(unique(gl$age500)), 
+                     distance = tapply(tdist, gl$age500, mean, na.rm=TRUE))
+library(ggpubr)
+ggline(plot.df, x = "age", y = "distance",
+       main = "Average distance moved", numeric.x.axis = TRUE) + scale_x_reverse()
 ## Maps
 llcrds = data.frame(lon=sites$lon, lat=sites$lat)
 llcrds$ent = sites.v

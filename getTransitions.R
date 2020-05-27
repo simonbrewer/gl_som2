@@ -33,4 +33,5 @@ write.csv(transitions, "transitions.csv", row.names = FALSE)
 
 plot.df = data.frame(transitions)
 gghistogram(plot.df, x = "transitions", binwidth = 1000,
-            main = "Pollen state transitions over time", xlab = "ageBP")
+            main = "Pollen state transitions over time", xlab = "ageBP") +
+  scale_x_reverse()
